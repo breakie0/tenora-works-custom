@@ -40,26 +40,84 @@ namespace psu_generic_parser
         public bool compressTMLL = false;
         public bool exportMetaData = true;
 
+        private string lastClipboardText = string.Empty;
+        private Timer clipboardMonitorTimer;
+
         private class FileTreeNodeTag
         {
             public ContainerFile OwnerContainer { get; set; }
             public string FileName { get; set; }
         }
 
+        public static class GlobalVariables
+        {
+            public static bool Zombie { get; set; } = false;
+            public static string ZombiePath { get; set; } = string.Empty;
+        }
+
         public MainForm()
         {
             InitializeComponent();
-            Text += System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-            setAFSEnabled(false);
+            //this.versionToolStripMenuItem.Text = "Version " + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            //this.versionToolStripMenuItem.Text = "Custom version";
+            //setAFSEnabled(false);
+
+            this.DoubleBuffered = true;
+			ResizeBegin += (s, e) => { this.SuspendLayout(); };
+			ResizeEnd += (s, e) => { this.ResumeLayout(true); };
+
+            // Initialize and start the timer
+            clipboardMonitorTimer = new Timer();
+            clipboardMonitorTimer.Interval = 500; // Check every 500 ms
+            clipboardMonitorTimer.Tick += ClipboardMonitorTimer_Tick;
+            clipboardMonitorTimer.Start();
+        }
+
+        private void ClipboardMonitorTimer_Tick(object sender, EventArgs e)
+        {
+            try
+            {
+                // Check if the clipboard contains text
+                if (Clipboard.ContainsText())
+                {
+                    string currentClipboardText = Clipboard.GetText();
+
+                    // Update only if the clipboard content has changed
+                    if (currentClipboardText != lastClipboardText)
+                    {
+                        lastClipboardText = currentClipboardText;
+                        textBox1.Text = lastClipboardText; // Update the TextBox
+                        if (GlobalVariables.Zombie == true)
+                        {
+                            SearchTreeViewByClipboardText();
+                            exportSelected();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle potential clipboard access exceptions
+                Console.WriteLine($"Error accessing clipboard: {ex.Message}");
+            }
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (fileDialog.ShowDialog() == DialogResult.OK)
             {
-                this.Text = "PSU Generic Parser " + Path.GetFileName(fileDialog.FileName);
+                
                 splitContainer1.Panel2.Controls.Clear();
-                openPSUArchive(fileDialog.FileName, treeView1.Nodes);
+                _didopen = openPSUArchive(fileDialog.FileName, treeView1.Nodes);
+                _filepathname = Path.GetFileName(fileDialog.FileName);
+                if (_didopen) {
+                    this.Text = "Tenora Works Custom | File -> " + _filepathname;
+                } else {
+                    this.Text = "Tenora Works Custom | Invalid -> " + _filepathname;
+                    MessageBox.Show("Error: Are you sure \""+ _filepathname + "\" is a valid PSU file?", "Error: Invalid PSU file");
+                }
+            } else {
+                this.Text = "Tenora Works Custom | File -> Cancelled";
             }
         }
 
@@ -73,7 +131,7 @@ namespace psu_generic_parser
             string identifier = Encoding.ASCII.GetString(formatName, 0, 4);
             if (identifier == "NMLL" || identifier == "NMLB")
             {
-                setAFSEnabled(false);
+                //setAFSEnabled(false);
                 treeNodeCollection.Clear();
                 loadedContainer = new NblLoader(stream);
                 splitContainer1.Panel2.Controls.Clear();
@@ -84,7 +142,7 @@ namespace psu_generic_parser
             } 
             else if (identifier == "AFS\0")
             {
-                setAFSEnabled(true);
+                //setAFSEnabled(true);
                 treeNodeCollection.Clear();
                 loadedContainer = new AfsLoader(stream);
                 splitContainer1.Panel2.Controls.Clear();
@@ -92,7 +150,7 @@ namespace psu_generic_parser
                 isValidArchive = true;
             } else if (BitConverter.ToInt16(formatName, 0) == 0x50AF)
             {
-                setAFSEnabled(false);
+                //setAFSEnabled(false);
                 treeNodeCollection.Clear();
                 loadedContainer = new MiniAfsLoader(stream);
                 splitContainer1.Panel2.Controls.Clear();
@@ -108,14 +166,14 @@ namespace psu_generic_parser
             return isValidArchive;
         }
 
-        private void setAFSEnabled(bool isActive)
-        {
-            zoneUD.Enabled = isActive;
-            addZoneButton.Enabled = isActive;
-            setZoneButton.Enabled = isActive;
-            addFileButton.Enabled = isActive;
-            setQuestButton.Enabled = isActive;
-        }
+        //private void setAFSEnabled(bool isActive)
+        //{
+        //    zoneUD.Enabled = isActive;
+        //    addZoneButton.Enabled = isActive;
+        //    setZoneButton.Enabled = isActive;
+        //    addFileButton.Enabled = isActive;
+        //    setQuestButton.Enabled = isActive;
+        //}
 
         /// <summary>
         /// Adds a container file's children to a given node collection.
@@ -323,7 +381,7 @@ namespace psu_generic_parser
             }
             else if (toRead is XntFile xntFile)
             {
-                toAdd = new XntFileViewer(xntFile);
+                toAdd = new XntFileViewer(xntFile, textBox1);
             }
             else if (toRead is XnaFile xnaFile)
             {
@@ -437,6 +495,14 @@ namespace psu_generic_parser
             {
                 toAdd = new LndCommonEditor(lndCommonFile);
             }
+            else if( toRead is PalTextureFile ripcFile )
+            {
+                toAdd = new PaletteTexFileViewer(ripcFile);
+            }
+            else if( toRead is QuestXNRFile questFile )
+            {
+                toAdd = new QuestXnrViewer(questFile);
+            }
             else if (toRead is UnpointeredFile unpointeredFile)
             {
                 toAdd = new UnpointeredFileViewer(unpointeredFile);
@@ -455,8 +521,7 @@ namespace psu_generic_parser
                 {
                     ((NblLoader)loadedContainer).exportDataBlob(goodOpenFileDialog.FileName);
                 }
-            }
-                
+            }    
         }
 
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -471,7 +536,7 @@ namespace psu_generic_parser
                     {
                         byte[] savedContainer = loadedContainer.ToRaw();
                         File.WriteAllBytes(saveFileDialog1.FileName, savedContainer);
-                        this.Text = "PSU Generic Parser " + Path.GetFileName(saveFileDialog1.FileName);
+                        this.Text = "Tenora Works Toolkit | " + Path.GetFileName(saveFileDialog1.FileName);
                         fileDialog.FileName = saveFileDialog1.FileName;
                     } catch(ScriptValidationException exc)
                     {
@@ -505,27 +570,27 @@ namespace psu_generic_parser
             }
         }
 
-        private void setZone_Click_1(object sender, EventArgs e)
-        {
-            if (loadedContainer is AfsLoader)
-            {
-                if (importDialog.ShowDialog() == DialogResult.OK)
-                {
-                    ((AfsLoader)loadedContainer).setZone((int)zoneUD.Value, importDialog.OpenFile());
-                }
-            }
-        }
-
-        private void addZone_Click_1(object sender, EventArgs e)
-        {
-            if (loadedContainer is AfsLoader)
-            {
-                if (importDialog.ShowDialog() == DialogResult.OK)
-                {
-                    ((AfsLoader)loadedContainer).addZone((int)zoneUD.Value, importDialog.OpenFile());
-                }
-            }
-        }
+        //private void setZone_Click_1(object sender, EventArgs e)
+        //{
+        //    if (loadedContainer is AfsLoader)
+        //    {
+        //        if (importDialog.ShowDialog() == DialogResult.OK)
+        //        {
+        //            ((AfsLoader)loadedContainer).setZone((int)zoneUD.Value, importDialog.OpenFile());
+        //        }
+        //    }
+        //}
+        //
+        //private void addZone_Click_1(object sender, EventArgs e)
+        //{
+        //    if (loadedContainer is AfsLoader)
+        //    {
+        //        if (importDialog.ShowDialog() == DialogResult.OK)
+        //        {
+        //            ((AfsLoader)loadedContainer).addZone((int)zoneUD.Value, importDialog.OpenFile());
+        //        }
+        //    }
+        //}
 
         private void treeView1_AfterSelect(object sender, TreeViewEventArgs e)
         {
@@ -611,6 +676,7 @@ namespace psu_generic_parser
         private void treeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             ((TreeView)sender).SelectedNode = e.Node;
+            Console.WriteLine($"Node Text: {e.Node.Text}, Node Name: {e.Node.Name}");
         }
 
         private void disableScriptParsingToolStripMenuItem_Click(object sender, EventArgs e)
@@ -970,28 +1036,62 @@ namespace psu_generic_parser
                 {
                     exportFileDialog.FileName = exportFileDialog.FileName.Replace(".xvr", ".png"); // Treat .png as default
                     exportFileDialog.Filter = "Portable Network Graphics (*.png)|*.png|Xbox PowerVR Texture (*.xvr)|*.xvr";
-                } else if (currentRight is TextFile)
+                }
+                else if (currentRight is TextFile)
                 {
                     exportFileDialog.FileName = exportFileDialog.FileName.Replace(".bin", ".txt"); // Treat .txt as default
                     exportFileDialog.Filter = "Text (*.txt)|*.txt|Binary File (*.bin)|*.bin";
                 }
-                
-                if (exportFileDialog.ShowDialog() == DialogResult.OK)
+
+                if (GlobalVariables.Zombie == false)
                 {
-                    if (currentRight is ITextureFile && Path.GetExtension(exportFileDialog.FileName).Equals(".png"))
+                    if (exportFileDialog.ShowDialog() == DialogResult.OK)
                     {
-                        ((ITextureFile)currentRight).mipMaps[0].Save(exportFileDialog.FileName);
-                    } else if (currentRight is TextFile && Path.GetExtension(exportFileDialog.FileName).Equals(".txt"))
+                        if (currentRight is ITextureFile && Path.GetExtension(exportFileDialog.FileName).Equals(".png"))
+                        {
+                            ((ITextureFile)currentRight).mipMaps[0].Save(exportFileDialog.FileName);
+                        }
+                        else if (currentRight is TextFile && Path.GetExtension(exportFileDialog.FileName).Equals(".txt"))
+                        {
+                            ((TextFile)currentRight).saveToTextFile(exportFileDialog.OpenFile());
+                        }
+                        else
+                        {
+                            extractFile(currentRight, exportFileDialog.FileName);
+                        }
+                    }
+                }
+                else
+                {
+                    string targetPath = GlobalVariables.ZombiePath+Clipboard.GetText(); // Use predefined path
+                    if (targetPath.EndsWith(".xvr"))
                     {
-                        ((TextFile)currentRight).saveToTextFile(exportFileDialog.OpenFile());
+                        targetPath = targetPath.Replace(".xvr", ".png");
+
+                        if (currentRight is ITextureFile && Path.GetExtension(targetPath).Equals(".png"))
+                        {
+                            ((ITextureFile)currentRight).mipMaps[0].Save(targetPath);
+                        }
+                        else if (currentRight is TextFile && Path.GetExtension(targetPath).Equals(".txt"))
+                        {
+                            using (var fileStream = new FileStream(targetPath, FileMode.Create, FileAccess.Write))
+                            {
+                                ((TextFile)currentRight).saveToTextFile(fileStream);
+                            }
+                        }
+                        else
+                        {
+                            extractFile(currentRight, targetPath);
+                        }
                     }
                     else
                     {
-                        extractFile(currentRight, exportFileDialog.FileName);
+                        GlobalVariables.Zombie = false;
+                        MessageBox.Show("Unknown texture file, disabling auto extract.");
+                        button2.ForeColor = Color.Red;
                     }
                 }
             }
-
         }
 
         private void exportNode(TreeNode node, string fileDirectory)
@@ -1249,7 +1349,7 @@ namespace psu_generic_parser
                                 }
                             }
                         }
-                    } catch (Exception exception)
+                    } catch (Exception)
                     {
                         Console.WriteLine("Error reading file");
                         //just ignore
@@ -1339,8 +1439,8 @@ namespace psu_generic_parser
                             }
                         }
                     }
-                    catch (Exception exception)
-                    {
+                    catch (Exception)
+					{
                         Console.WriteLine("Error reading file");
                         //just ignore
                     }
@@ -1712,6 +1812,8 @@ namespace psu_generic_parser
         }
 
         AnimationNameHashDialog dialog = new AnimationNameHashDialog();
+        private bool _didopen;
+        private string _filepathname;
 
         private void calculateAnimationNameHashToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1827,6 +1929,152 @@ namespace psu_generic_parser
                 {
                     e.CancelEdit = true;
                 }
+            }
+        }
+
+		private void viewCurrentFileInHexToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			if (currentRight != null)
+			{
+				PointeredFile pointeredFile = null;
+				byte[] file = currentRight.ToRaw();
+				if (currentRight.calculatedPointers != null)
+				{
+					if (currentRight is PointeredFile)
+					{
+						pointeredFile = (PointeredFile)currentRight;
+					}
+					else
+					{
+						//For now, Big Endian files don't really need to be considered here since they'd be a PointeredFile already. Possibly add in further support if added elsewhere later
+						pointeredFile = new PointeredFile(currentRight.filename, file, currentRight.header, currentRight.calculatedPointers, 0, false);
+					}
+					pointeredFile.ToRaw();
+				}
+
+				string headingText = $"Selected File: {currentRight.filename}";
+
+				if (currentFileHexForm != null)
+				{
+					currentFileHexForm.Close();
+				}
+				if (pointeredFile != null)
+				{
+					currentFileHexForm = new HexEditForm(file, headingText, true,
+						pointeredFile);
+				}
+				else
+				{
+					currentFileHexForm = new HexEditForm(file, headingText, true,
+						null);
+				}
+
+				currentFileHexForm.Show();
+			}
+		}
+
+		private void githubToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			System.Diagnostics.Process.Start("https://github.com/Agrathejagged/tenora-works");
+		}
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void splitContainer1_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private TreeNode FindNodeByText(TreeNodeCollection nodes, string searchText)
+        {
+            foreach (TreeNode node in nodes)
+            {
+                if (node.Text.Equals(searchText, StringComparison.OrdinalIgnoreCase))
+                {
+                    return node;
+                }
+
+                // Search child nodes recursively
+                TreeNode found = FindNodeByText(node.Nodes, searchText);
+                if (found != null)
+                {
+                    return found;
+                }
+            }
+            return null;
+        }
+
+        private void SearchTreeViewByClipboardText()
+        {
+            string searchString = Clipboard.GetText(); // Get the text from the clipboard
+
+            TreeNode targetNode = FindNodeByText(treeView1.Nodes, searchString);
+
+            if (targetNode != null)
+            {
+                treeView1.SelectedNode = targetNode;
+                targetNode.EnsureVisible();
+                // Optionally show a message or perform additional actions here
+                // MessageBox.Show($"Node with text '{searchString}' found and selected.");
+            }
+            else
+            {
+                // Optionally handle the case where no match is found
+                // MessageBox.Show($"Node with text '{searchString}' not found.");
+            }
+        }
+
+        private void treeView1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.F1) // Check if the F1 key is pressed
+            {
+                SearchTreeViewByClipboardText();
+            }
+        }
+
+        private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            SearchTreeViewByClipboardText();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (GlobalVariables.Zombie == false) {
+                button2.ForeColor = Color.Green;
+                GlobalVariables.Zombie = true;
+
+                using (CommonOpenFileDialog dialog = new CommonOpenFileDialog())
+                {
+                    dialog.IsFolderPicker = true; // Enables folder selection
+                    dialog.Title = "Select a Folder"; // Sets the dialog title
+                    dialog.InitialDirectory = @"C:\"; // Optional: Set an initial directory
+
+                    if (dialog.ShowDialog() == CommonFileDialogResult.Ok)
+                    {
+                        GlobalVariables.ZombiePath = dialog.FileName+"/"; // Returns the selected folder path
+                    }
+                }
+            } else {
+                button2.ForeColor = Color.Red;
+                GlobalVariables.Zombie = false;
             }
         }
     }

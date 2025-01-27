@@ -55,10 +55,11 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Lime;
+            this.pictureBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(10)))), ((int)(((byte)(28)))));
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(366, 277);
+            this.pictureBox1.Size = new System.Drawing.Size(263, 308);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
@@ -115,7 +116,7 @@
             // buttonImport
             // 
             this.buttonImport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonImport.Location = new System.Drawing.Point(406, 48);
+            this.buttonImport.Location = new System.Drawing.Point(282, 48);
             this.buttonImport.Name = "buttonImport";
             this.buttonImport.Size = new System.Drawing.Size(75, 23);
             this.buttonImport.TabIndex = 6;
@@ -129,7 +130,7 @@
             this.rebuildMipsCheckbox.AutoSize = true;
             this.rebuildMipsCheckbox.Checked = true;
             this.rebuildMipsCheckbox.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.rebuildMipsCheckbox.Location = new System.Drawing.Point(400, 155);
+            this.rebuildMipsCheckbox.Location = new System.Drawing.Point(276, 155);
             this.rebuildMipsCheckbox.Name = "rebuildMipsCheckbox";
             this.rebuildMipsCheckbox.Size = new System.Drawing.Size(93, 17);
             this.rebuildMipsCheckbox.TabIndex = 7;
@@ -149,7 +150,7 @@
             // buttonExport
             // 
             this.buttonExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonExport.Location = new System.Drawing.Point(406, 76);
+            this.buttonExport.Location = new System.Drawing.Point(282, 76);
             this.buttonExport.Name = "buttonExport";
             this.buttonExport.Size = new System.Drawing.Size(75, 23);
             this.buttonExport.TabIndex = 9;
@@ -175,7 +176,7 @@
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Location = new System.Drawing.Point(7, 49);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(387, 308);
+            this.panel1.Size = new System.Drawing.Size(263, 308);
             this.panel1.TabIndex = 10;
             // 
             // label2
@@ -218,7 +219,7 @@
             // 
             this.pixelFormatDropDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pixelFormatDropDown.FormattingEnabled = true;
-            this.pixelFormatDropDown.Location = new System.Drawing.Point(400, 204);
+            this.pixelFormatDropDown.Location = new System.Drawing.Point(276, 204);
             this.pixelFormatDropDown.Name = "pixelFormatDropDown";
             this.pixelFormatDropDown.Size = new System.Drawing.Size(121, 21);
             this.pixelFormatDropDown.TabIndex = 15;
@@ -228,16 +229,17 @@
             // 
             this.label6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(400, 188);
+            this.label6.Location = new System.Drawing.Point(276, 188);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(95, 13);
             this.label6.TabIndex = 16;
             this.label6.Text = "Save Pixel Format:";
             // 
-            // XvrViewer
+            // TextureViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.Controls.Add(this.label6);
             this.Controls.Add(this.pixelFormatDropDown);
             this.Controls.Add(this.label5);
@@ -254,8 +256,9 @@
             this.Controls.Add(this.buttonDownMip);
             this.Controls.Add(this.mipLabel);
             this.Controls.Add(this.label1);
-            this.Name = "XvrViewer";
-            this.Size = new System.Drawing.Size(524, 360);
+            this.ForeColor = System.Drawing.Color.Tomato;
+            this.Name = "TextureViewer";
+            this.Size = new System.Drawing.Size(400, 360);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);

@@ -56,7 +56,9 @@
             // 
             // treeView1
             // 
+            this.treeView1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView1.ForeColor = System.Drawing.SystemColors.Info;
             this.treeView1.Location = new System.Drawing.Point(0, 0);
             this.treeView1.Name = "treeView1";
             this.treeView1.Size = new System.Drawing.Size(140, 334);
@@ -65,7 +67,9 @@
             // 
             // frameDataTextBox
             // 
+            this.frameDataTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.frameDataTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.frameDataTextBox.ForeColor = System.Drawing.SystemColors.Info;
             this.frameDataTextBox.Location = new System.Drawing.Point(0, 0);
             this.frameDataTextBox.Name = "frameDataTextBox";
             this.frameDataTextBox.Size = new System.Drawing.Size(278, 334);

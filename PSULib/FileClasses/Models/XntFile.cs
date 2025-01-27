@@ -15,15 +15,16 @@ namespace PSULib.FileClasses.Models
             /// <summary>
             /// If this value is set to 0x200 (512), it forces the minify/mipmap filter to 0 (minify point, mip nearest neighbor) and magnify filter to 0 (point).
             /// </summary>
-            public int disableFlag { get; set; }
+            //public int disableFlag { get; set; }
             public string filename { get; set; }
-            public MinifyMipFilter minifyMipmapFilter { get; set; }
-            public MagnifyFilter magnifyFilter { get; set; }
-            public int unused1 { get; set; }
-            public int unused2 { get; set; }
+            //public MinifyMipFilter minifyMipmapFilter { get; set; }
+            //public MagnifyFilter magnifyFilter { get; set; }
+            //public int unused1 { get; set; }
+            //public int unused2 { get; set; }
         }
 
         public List<XntTextureEntry> fileEntries = new List<XntTextureEntry>();
+        private int _testvar, _testvar1, _testvar2, _testvar3, _testvar4, _testvar5;
 
         public XntFile(string inFilename, List<string> names)
         {
@@ -31,10 +32,10 @@ namespace PSULib.FileClasses.Models
             for (int i = 0; i < names.Count; i++)
             {
                 XntTextureEntry entry = new XntTextureEntry();
-                entry.disableFlag = 0;
+                //entry.disableFlag = 0;
                 entry.filename = names[i];
-                entry.minifyMipmapFilter = MinifyMipFilter.MIN_LINEAR_MIPMAP_POINT;
-                entry.magnifyFilter = MagnifyFilter.LINEAR;
+                //entry.minifyMipmapFilter = MinifyMipFilter.MIN_LINEAR_MIPMAP_POINT;
+                //entry.magnifyFilter = MagnifyFilter.LINEAR;
                 fileEntries.Add(entry);
             }
         }
@@ -56,12 +57,12 @@ namespace PSULib.FileClasses.Models
             for (int i = 0; i < stringCount; i++)
             {
                 XntTextureEntry entry = new XntTextureEntry();
-                entry.disableFlag = inReader.ReadInt32();
+                _testvar1 = inReader.ReadInt32();
                 stringLocs[i] = inReader.ReadInt32() - baseAddr;
-                entry.minifyMipmapFilter = (MinifyMipFilter)inReader.ReadInt16();
-                entry.magnifyFilter = (MagnifyFilter)inReader.ReadInt16();
-                entry.unused1 = inReader.ReadInt32();
-                entry.unused2 = inReader.ReadInt32();
+                _testvar3 = (int)(MinifyMipFilter)inReader.ReadInt16();
+                _testvar3 = (int)(MagnifyFilter)inReader.ReadInt16();
+                _testvar1 = inReader.ReadInt32();
+                _testvar1 = inReader.ReadInt32();
                 fileEntries.Add(entry);
             }
 
@@ -100,13 +101,13 @@ namespace PSULib.FileClasses.Models
             outStream.Seek(listLoc, SeekOrigin.Begin);
             for (int i = 0; i < textOffsets.Length; i++)
             {
-                outWriter.Write(fileEntries[i].disableFlag);
+                //outWriter.Write(fileEntries[i].disableFlag);
                 ptrList.Add((int)outStream.Position);
                 outWriter.Write(textOffsets[i]);
-                outWriter.Write((short)fileEntries[i].minifyMipmapFilter);
-                outWriter.Write((short)fileEntries[i].magnifyFilter);
-                outWriter.Write(fileEntries[i].unused1);
-                outWriter.Write(fileEntries[i].unused2);
+                //outWriter.Write((short)fileEntries[i].minifyMipmapFilter);
+                //outWriter.Write((short)fileEntries[i].magnifyFilter);
+                //outWriter.Write(fileEntries[i].unused1);
+                //outWriter.Write(fileEntries[i].unused2);
             }
 
             int headerLoc = (int)outStream.Position;
@@ -119,7 +120,7 @@ namespace PSULib.FileClasses.Models
             outWriter.Write((uint)0x4C54584E);
             outWriter.Write(fileEnd);
             outWriter.Write(headerLoc);
-            outWriter.Write(0);
+            //outWriter.Write(0);
 
             calculatedPointers = ptrList.ToArray();
 
@@ -134,7 +135,7 @@ namespace PSULib.FileClasses.Models
             headerWriter.Write(fileEnd);
             headerWriter.Write(fileEnd + 0x20);
             headerWriter.Write((int)(calculatedPointers.Length * 4 + 0x1F & 0xFFFFFFE0));
-            headerWriter.Write(1);
+            //headerWriter.Write(1);
 
             return outStream.ToArray();
         }

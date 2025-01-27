@@ -21,5 +21,10 @@ namespace psu_generic_parser.FileViewers
             loadedFile = xna;
             dataGridView1.DataSource = xna.boneReferences;
         }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

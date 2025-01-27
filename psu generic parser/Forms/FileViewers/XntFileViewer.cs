@@ -8,35 +8,46 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PSULib.FileClasses.Models;
+using System.Data.SqlClient;
+using System.Drawing.Printing;
+
 
 namespace psu_generic_parser.FileViewers
 {
     public partial class XntFileViewer : UserControl
     {
         public XntFile loadedFile;
+        private TextBox externalTextBox;
 
-        public XntFileViewer(XntFile xnt)
+        public XntFileViewer(XntFile xnt, TextBox textBox)
         {
             InitializeComponent();
             loadedFile = xnt;
             dataGridView1.DataSource = xnt.fileEntries;
 
-            //Hacky approach to set the columns to the two enums
-            DataGridViewComboBoxColumn column2 = new DataGridViewComboBoxColumn();
-            column2.DataSource = Enum.GetValues(typeof(MinifyMipFilter));
-            column2.DataPropertyName = "minifyMipmapFilter";
-            column2.HeaderText = "Minify/Mipmap Filter";
-            column2.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridView1.Columns.RemoveAt(2);
-            dataGridView1.Columns.Insert(2, column2);
 
-            DataGridViewComboBoxColumn column3 = new DataGridViewComboBoxColumn();
-            column3.DataSource = Enum.GetValues(typeof(MagnifyFilter));
-            column3.DataPropertyName = "magnifyFilter";
-            column3.HeaderText = "Magnify Filter";
-            column3.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            dataGridView1.Columns.RemoveAt(3);
-            dataGridView1.Columns.Insert(3, column3);
+            externalTextBox = textBox;
+        }
+
+        private void dataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+                {
+                    // Get the clicked cell
+                    var cell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
+
+                    // Retrieve the text value of the cell
+                    string cellValue = cell.Value?.ToString() ?? string.Empty;
+
+                    Clipboard.SetText(cellValue);
+                    if (externalTextBox != null)
+                    {
+                        externalTextBox.Text = cellValue;
+                    }
+                }
+            }
         }
     }
 }

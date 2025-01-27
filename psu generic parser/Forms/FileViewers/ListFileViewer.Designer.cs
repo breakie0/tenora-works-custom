@@ -57,7 +57,9 @@
             // 
             // stringListBox
             // 
+            this.stringListBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.stringListBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.stringListBox.ForeColor = System.Drawing.Color.Coral;
             this.stringListBox.FormattingEnabled = true;
             this.stringListBox.Location = new System.Drawing.Point(0, 0);
             this.stringListBox.Name = "stringListBox";
@@ -67,8 +69,10 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.GridColor = System.Drawing.Color.Coral;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(342, 391);

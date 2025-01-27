@@ -164,6 +164,7 @@ namespace psu_generic_parser.Forms.FileViewers
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.unknownValueUpDown);
@@ -176,6 +177,7 @@ namespace psu_generic_parser.Forms.FileViewers
             this.Controls.Add(this.xnt2TextBox);
             this.Controls.Add(this.xnt1TextBox);
             this.Controls.Add(this.nblTextBox);
+            this.ForeColor = System.Drawing.Color.Coral;
             this.Name = "LndCommonEditor";
             this.Size = new System.Drawing.Size(334, 147);
             ((System.ComponentModel.ISupportInitialize)(this.unknownValueUpDown)).EndInit();

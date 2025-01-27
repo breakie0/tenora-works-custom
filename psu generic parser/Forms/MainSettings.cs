@@ -19,7 +19,7 @@ namespace psu_generic_parser
             mainForm = form;
             InitializeComponent();
             ExportPNGCheckBox.Checked = mainForm.batchPngExport;
-            exportMetaDataCheckBox.Checked = mainForm.exportMetaData;
+            //exportMetaDataCheckBox.Checked = mainForm.exportMetaData;
             BatchExportSubContainersCheckBox.Checked = mainForm.batchExportSubArchiveFiles;
             BatchExportSubDirectoriesCheckBox.Checked = mainForm.batchRecursive;
 

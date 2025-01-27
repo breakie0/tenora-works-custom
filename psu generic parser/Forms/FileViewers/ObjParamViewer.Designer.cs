@@ -30,11 +30,16 @@ namespace psu_generic_parser.Forms.FileViewers
         private void InitializeComponent()
         {
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.btn_obj_delete = new System.Windows.Forms.Button();
+            this.btn_obj_add = new System.Windows.Forms.Button();
+            this.objectListBox = new System.Windows.Forms.ListBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.btn_param_delete = new System.Windows.Forms.Button();
+            this.btn_param_add = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
             this.tabPage4 = new System.Windows.Forms.TabPage();
@@ -43,7 +48,6 @@ namespace psu_generic_parser.Forms.FileViewers
             this.group4Sub2Datagrid = new System.Windows.Forms.DataGridView();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.dataGridView5 = new System.Windows.Forms.DataGridView();
-            this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -67,13 +71,17 @@ namespace psu_generic_parser.Forms.FileViewers
             // 
             // splitContainer1
             // 
+            this.splitContainer1.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Name = "splitContainer1";
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.listBox1);
+            this.splitContainer1.Panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.splitContainer1.Panel1.Controls.Add(this.btn_obj_delete);
+            this.splitContainer1.Panel1.Controls.Add(this.btn_obj_add);
+            this.splitContainer1.Panel1.Controls.Add(this.objectListBox);
             // 
             // splitContainer1.Panel2
             // 
@@ -82,15 +90,41 @@ namespace psu_generic_parser.Forms.FileViewers
             this.splitContainer1.SplitterDistance = 166;
             this.splitContainer1.TabIndex = 1;
             // 
-            // listBox1
+            // btn_obj_delete
             // 
-            this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(0, 0);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(166, 325);
-            this.listBox1.TabIndex = 0;
-            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            this.btn_obj_delete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_obj_delete.Location = new System.Drawing.Point(85, 296);
+            this.btn_obj_delete.Name = "btn_obj_delete";
+            this.btn_obj_delete.Size = new System.Drawing.Size(76, 23);
+            this.btn_obj_delete.TabIndex = 2;
+            this.btn_obj_delete.Text = "Delete";
+            this.btn_obj_delete.UseVisualStyleBackColor = true;
+            this.btn_obj_delete.Click += new System.EventHandler(this.btn_obj_delete_Click);
+            // 
+            // btn_obj_add
+            // 
+            this.btn_obj_add.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_obj_add.Location = new System.Drawing.Point(3, 296);
+            this.btn_obj_add.Name = "btn_obj_add";
+            this.btn_obj_add.Size = new System.Drawing.Size(76, 23);
+            this.btn_obj_add.TabIndex = 1;
+            this.btn_obj_add.Text = "Add";
+            this.btn_obj_add.UseVisualStyleBackColor = true;
+            this.btn_obj_add.Click += new System.EventHandler(this.btn_obj_add_Click);
+            // 
+            // objectListBox
+            // 
+            this.objectListBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.objectListBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.objectListBox.ForeColor = System.Drawing.SystemColors.ActiveCaption;
+            this.objectListBox.FormattingEnabled = true;
+            this.objectListBox.Location = new System.Drawing.Point(0, 0);
+            this.objectListBox.Name = "objectListBox";
+            this.objectListBox.Size = new System.Drawing.Size(166, 290);
+            this.objectListBox.TabIndex = 0;
+            this.objectListBox.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // tabControl1
             // 
@@ -108,6 +142,9 @@ namespace psu_generic_parser.Forms.FileViewers
             // 
             // tabPage1
             // 
+            this.tabPage1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.tabPage1.Controls.Add(this.btn_param_delete);
+            this.tabPage1.Controls.Add(this.btn_param_add);
             this.tabPage1.Controls.Add(this.dataGridView1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
@@ -115,15 +152,34 @@ namespace psu_generic_parser.Forms.FileViewers
             this.tabPage1.Size = new System.Drawing.Size(321, 299);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Group 1";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // btn_param_delete
+            // 
+            this.btn_param_delete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_param_delete.Location = new System.Drawing.Point(240, 273);
+            this.btn_param_delete.Name = "btn_param_delete";
+            this.btn_param_delete.Size = new System.Drawing.Size(76, 23);
+            this.btn_param_delete.TabIndex = 4;
+            this.btn_param_delete.Text = "Delete";
+            this.btn_param_delete.UseVisualStyleBackColor = true;
+            // 
+            // btn_param_add
+            // 
+            this.btn_param_add.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_param_add.Location = new System.Drawing.Point(158, 273);
+            this.btn_param_add.Name = "btn_param_add";
+            this.btn_param_add.Size = new System.Drawing.Size(76, 23);
+            this.btn_param_add.TabIndex = 3;
+            this.btn_param_add.Text = "Add";
+            this.btn_param_add.UseVisualStyleBackColor = true;
             // 
             // dataGridView1
             // 
+            this.dataGridView1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(3, 3);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(315, 293);
+            this.dataGridView1.Size = new System.Drawing.Size(315, 265);
             this.dataGridView1.TabIndex = 0;
             // 
             // tabPage2
@@ -136,6 +192,14 @@ namespace psu_generic_parser.Forms.FileViewers
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Hitbox Data";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // propertyGrid1
+            // 
+            this.propertyGrid1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.propertyGrid1.Location = new System.Drawing.Point(3, 3);
+            this.propertyGrid1.Name = "propertyGrid1";
+            this.propertyGrid1.Size = new System.Drawing.Size(315, 293);
+            this.propertyGrid1.TabIndex = 0;
             // 
             // tabPage3
             // 
@@ -221,18 +285,11 @@ namespace psu_generic_parser.Forms.FileViewers
             this.dataGridView5.Size = new System.Drawing.Size(321, 299);
             this.dataGridView5.TabIndex = 0;
             // 
-            // propertyGrid1
-            // 
-            this.propertyGrid1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.propertyGrid1.Location = new System.Drawing.Point(3, 3);
-            this.propertyGrid1.Name = "propertyGrid1";
-            this.propertyGrid1.Size = new System.Drawing.Size(315, 293);
-            this.propertyGrid1.TabIndex = 0;
-            // 
             // ObjParamViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.Controls.Add(this.splitContainer1);
             this.Name = "ObjParamViewer";
             this.Size = new System.Drawing.Size(499, 325);
@@ -261,7 +318,7 @@ namespace psu_generic_parser.Forms.FileViewers
 
         #endregion
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox objectListBox;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
@@ -275,5 +332,9 @@ namespace psu_generic_parser.Forms.FileViewers
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.DataGridView group4Sub2Datagrid;
         private System.Windows.Forms.PropertyGrid propertyGrid1;
-    }
+		private System.Windows.Forms.Button btn_obj_add;
+		private System.Windows.Forms.Button btn_obj_delete;
+		private System.Windows.Forms.Button btn_param_delete;
+		private System.Windows.Forms.Button btn_param_add;
+	}
 }

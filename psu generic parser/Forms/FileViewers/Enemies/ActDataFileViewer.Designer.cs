@@ -67,7 +67,7 @@ namespace psu_generic_parser.Forms.FileViewers.Enemies
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
             this.splitContainer1.Panel2.Controls.Add(this.comboBox1);
-            this.splitContainer1.Size = new System.Drawing.Size(633, 491);
+            this.splitContainer1.Size = new System.Drawing.Size(433, 491);
             this.splitContainer1.SplitterDistance = 210;
             this.splitContainer1.TabIndex = 0;
             // 

@@ -29,15 +29,18 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.fileDialog = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.standardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportSelectedFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.batchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.extractAllInFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -56,83 +59,102 @@
             this.decryptNMLLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.textureCatalogueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.catalogueEnemyparamToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewCurrentFileInHexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.githubToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.versionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.treeView1 = new System.Windows.Forms.TreeView();
             this.importDialog = new System.Windows.Forms.OpenFileDialog();
-            this.setQuestButton = new System.Windows.Forms.Button();
-            this.setZoneButton = new System.Windows.Forms.Button();
-            this.addZoneButton = new System.Windows.Forms.Button();
-            this.addFileButton = new System.Windows.Forms.Button();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.arbitraryFileContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.extractSelectedTreeContextItem = new System.Windows.Forms.ToolStripMenuItem();
             this.replaceFileTreeContextItem = new System.Windows.Forms.ToolStripMenuItem();
             this.renameFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.actionProgressBar = new System.Windows.Forms.ProgressBar();
-            this.progressStatusLabel = new System.Windows.Forms.Label();
-            this.viewInHexButton = new System.Windows.Forms.Button();
-            this.zoneUD = new System.Windows.Forms.NumericUpDown();
-            this.AFSQuestItemsLabel = new System.Windows.Forms.Label();
-            this.zoneLabel = new System.Windows.Forms.Label();
             this.afsNblFileContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.nblChunkContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.compressChunkToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.directorySearcher1 = new System.DirectoryServices.DirectorySearcher();
+            this.treeView1 = new System.Windows.Forms.TreeView();
+            this.actionProgressBar = new System.Windows.Forms.ProgressBar();
+            this.progressStatusLabel = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.button2 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
+            this.arbitraryFileContextMenuStrip.SuspendLayout();
+            this.nblChunkContextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.arbitraryFileContextMenuStrip.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.zoneUD)).BeginInit();
-            this.nblChunkContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
             // 
+            this.menuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.standardToolStripMenuItem,
             this.batchToolStripMenuItem,
             this.toolsToolStripMenuItem,
-            this.debugToolStripMenuItem});
+            this.debugToolStripMenuItem,
+            this.githubToolStripMenuItem,
+            this.versionToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(6, 3, 0, 3);
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.menuStrip1.Size = new System.Drawing.Size(827, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(884, 25);
             this.menuStrip1.TabIndex = 12;
             this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
             // 
             // standardToolStripMenuItem
             // 
             this.standardToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openToolStripMenuItem,
+            this.toolStripSeparator1,
             this.exportToolStripMenuItem,
             this.saveAsToolStripMenuItem,
             this.settingsToolStripMenuItem,
+            this.toolStripSeparator2,
             this.exitToolStripMenuItem});
+            this.standardToolStripMenuItem.ForeColor = System.Drawing.Color.Coral;
             this.standardToolStripMenuItem.Name = "standardToolStripMenuItem";
-            this.standardToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.standardToolStripMenuItem.Size = new System.Drawing.Size(37, 19);
             this.standardToolStripMenuItem.Text = "File";
             // 
             // openToolStripMenuItem
             // 
+            this.openToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.openToolStripMenuItem.ForeColor = System.Drawing.Color.Coral;
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(120, 6);
+            // 
             // exportToolStripMenuItem
             // 
+            this.exportToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.exportToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exportSelectedFileToolStripMenuItem,
             this.exportAllToolStripMenuItem});
+            this.exportToolStripMenuItem.ForeColor = System.Drawing.Color.Coral;
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
             this.exportToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.exportToolStripMenuItem.Text = "Export";
             // 
             // exportSelectedFileToolStripMenuItem
             // 
+            this.exportSelectedFileToolStripMenuItem.BackColor = System.Drawing.Color.Black;
+            this.exportSelectedFileToolStripMenuItem.ForeColor = System.Drawing.Color.Coral;
+            this.exportSelectedFileToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.exportSelectedFileToolStripMenuItem.Name = "exportSelectedFileToolStripMenuItem";
             this.exportSelectedFileToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.exportSelectedFileToolStripMenuItem.Text = "Export Selected";
@@ -140,6 +162,9 @@
             // 
             // exportAllToolStripMenuItem
             // 
+            this.exportAllToolStripMenuItem.BackColor = System.Drawing.Color.Black;
+            this.exportAllToolStripMenuItem.ForeColor = System.Drawing.Color.Coral;
+            this.exportAllToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.exportAllToolStripMenuItem.Name = "exportAllToolStripMenuItem";
             this.exportAllToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.exportAllToolStripMenuItem.Text = "Export All";
@@ -147,6 +172,8 @@
             // 
             // saveAsToolStripMenuItem
             // 
+            this.saveAsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.saveAsToolStripMenuItem.ForeColor = System.Drawing.Color.Coral;
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
             this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.saveAsToolStripMenuItem.Text = "Save As...";
@@ -154,13 +181,22 @@
             // 
             // settingsToolStripMenuItem
             // 
+            this.settingsToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.settingsToolStripMenuItem.ForeColor = System.Drawing.Color.Coral;
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(120, 6);
+            // 
             // exitToolStripMenuItem
             // 
+            this.exitToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.exitToolStripMenuItem.ForeColor = System.Drawing.Color.Coral;
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.exitToolStripMenuItem.Text = "Exit";
@@ -172,8 +208,9 @@
             this.extractAllInFolderToolStripMenuItem,
             this.listAllObjparamsToolStripMenuItem,
             this.listAllMonsterLayoutsToolStripMenuItem});
+            this.batchToolStripMenuItem.ForeColor = System.Drawing.Color.Coral;
             this.batchToolStripMenuItem.Name = "batchToolStripMenuItem";
-            this.batchToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
+            this.batchToolStripMenuItem.Size = new System.Drawing.Size(49, 19);
             this.batchToolStripMenuItem.Text = "Batch";
             // 
             // extractAllInFolderToolStripMenuItem
@@ -201,8 +238,9 @@
             // 
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.calculateAnimationNameHashToolStripMenuItem});
+            this.toolsToolStripMenuItem.ForeColor = System.Drawing.Color.Coral;
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 19);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
             // calculateAnimationNameHashToolStripMenuItem
@@ -224,9 +262,11 @@
             this.decryptNMLBToolStripMenuItem,
             this.decryptNMLLToolStripMenuItem,
             this.textureCatalogueToolStripMenuItem,
-            this.catalogueEnemyparamToolStripMenuItem});
+            this.catalogueEnemyparamToolStripMenuItem,
+            this.viewCurrentFileInHexToolStripMenuItem});
+            this.debugToolStripMenuItem.ForeColor = System.Drawing.Color.Coral;
             this.debugToolStripMenuItem.Name = "debugToolStripMenuItem";
-            this.debugToolStripMenuItem.Size = new System.Drawing.Size(54, 20);
+            this.debugToolStripMenuItem.Size = new System.Drawing.Size(54, 19);
             this.debugToolStripMenuItem.Text = "Debug";
             // 
             // exportBlobToolStripMenuItem
@@ -299,83 +339,45 @@
             this.catalogueEnemyparamToolStripMenuItem.Text = "Catalogue enemyparam";
             this.catalogueEnemyparamToolStripMenuItem.Click += new System.EventHandler(this.catalogueEnemyparamToolStripMenuItem_Click);
             // 
-            // splitContainer1
+            // viewCurrentFileInHexToolStripMenuItem
             // 
-            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.splitContainer1.Location = new System.Drawing.Point(12, 73);
-            this.splitContainer1.Name = "splitContainer1";
+            this.viewCurrentFileInHexToolStripMenuItem.Name = "viewCurrentFileInHexToolStripMenuItem";
+            this.viewCurrentFileInHexToolStripMenuItem.Size = new System.Drawing.Size(201, 22);
+            this.viewCurrentFileInHexToolStripMenuItem.Text = "View Current File in Hex";
+            this.viewCurrentFileInHexToolStripMenuItem.Click += new System.EventHandler(this.viewCurrentFileInHexToolStripMenuItem_Click);
             // 
-            // splitContainer1.Panel1
+            // githubToolStripMenuItem
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.treeView1);
-            this.splitContainer1.Size = new System.Drawing.Size(802, 395);
-            this.splitContainer1.SplitterDistance = 265;
-            this.splitContainer1.TabIndex = 14;
+            this.githubToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.githubToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.githubToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.githubToolStripMenuItem.ForeColor = System.Drawing.Color.Coral;
+            this.githubToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.githubToolStripMenuItem.Name = "githubToolStripMenuItem";
+            this.githubToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.githubToolStripMenuItem.Size = new System.Drawing.Size(55, 19);
+            this.githubToolStripMenuItem.Text = "Github";
+            this.githubToolStripMenuItem.Click += new System.EventHandler(this.githubToolStripMenuItem_Click);
             // 
-            // treeView1
+            // versionToolStripMenuItem
             // 
-            this.treeView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.treeView1.HideSelection = false;
-            this.treeView1.LabelEdit = true;
-            this.treeView1.Location = new System.Drawing.Point(0, 3);
-            this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(262, 392);
-            this.treeView1.TabIndex = 0;
-            this.treeView1.BeforeLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.treeView1_BeforeLabelEdit);
-            this.treeView1.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.treeView1_AfterLabelEdit);
-            this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
-            this.treeView1.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
+            this.versionToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.versionToolStripMenuItem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.versionToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.versionToolStripMenuItem.ForeColor = System.Drawing.Color.Crimson;
+            this.versionToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.versionToolStripMenuItem.Name = "versionToolStripMenuItem";
+            this.versionToolStripMenuItem.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.versionToolStripMenuItem.Size = new System.Drawing.Size(102, 19);
+            this.versionToolStripMenuItem.Text = "Custom Version";
             // 
             // importDialog
             // 
             this.importDialog.FileName = "openFileDialog2";
             // 
-            // setQuestButton
-            // 
-            this.setQuestButton.Location = new System.Drawing.Point(93, 25);
-            this.setQuestButton.Name = "setQuestButton";
-            this.setQuestButton.Size = new System.Drawing.Size(75, 23);
-            this.setQuestButton.TabIndex = 16;
-            this.setQuestButton.Text = "Set Quest";
-            this.setQuestButton.UseVisualStyleBackColor = true;
-            this.setQuestButton.Click += new System.EventHandler(this.setQuest_Click);
-            // 
-            // setZoneButton
-            // 
-            this.setZoneButton.Location = new System.Drawing.Point(93, 49);
-            this.setZoneButton.Name = "setZoneButton";
-            this.setZoneButton.Size = new System.Drawing.Size(75, 23);
-            this.setZoneButton.TabIndex = 17;
-            this.setZoneButton.Text = "Set Zone";
-            this.setZoneButton.UseVisualStyleBackColor = true;
-            this.setZoneButton.Click += new System.EventHandler(this.setZone_Click_1);
-            // 
-            // addZoneButton
-            // 
-            this.addZoneButton.Location = new System.Drawing.Point(174, 49);
-            this.addZoneButton.Name = "addZoneButton";
-            this.addZoneButton.Size = new System.Drawing.Size(75, 23);
-            this.addZoneButton.TabIndex = 18;
-            this.addZoneButton.Text = "Add Zone";
-            this.addZoneButton.UseVisualStyleBackColor = true;
-            this.addZoneButton.Click += new System.EventHandler(this.addZone_Click_1);
-            // 
-            // addFileButton
-            // 
-            this.addFileButton.Location = new System.Drawing.Point(174, 25);
-            this.addFileButton.Name = "addFileButton";
-            this.addFileButton.Size = new System.Drawing.Size(75, 23);
-            this.addFileButton.TabIndex = 21;
-            this.addFileButton.Text = "Add File";
-            this.addFileButton.UseVisualStyleBackColor = true;
-            this.addFileButton.Click += new System.EventHandler(this.addFile_Click);
-            // 
             // arbitraryFileContextMenuStrip
             // 
+            this.arbitraryFileContextMenuStrip.BackColor = System.Drawing.Color.Gray;
             this.arbitraryFileContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.extractSelectedTreeContextItem,
             this.replaceFileTreeContextItem,
@@ -387,6 +389,7 @@
             // 
             // extractSelectedTreeContextItem
             // 
+            this.extractSelectedTreeContextItem.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.extractSelectedTreeContextItem.Name = "extractSelectedTreeContextItem";
             this.extractSelectedTreeContextItem.Size = new System.Drawing.Size(113, 22);
             this.extractSelectedTreeContextItem.Text = "Extract File";
@@ -394,6 +397,7 @@
             // 
             // replaceFileTreeContextItem
             // 
+            this.replaceFileTreeContextItem.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.replaceFileTreeContextItem.Name = "replaceFileTreeContextItem";
             this.replaceFileTreeContextItem.Size = new System.Drawing.Size(113, 22);
             this.replaceFileTreeContextItem.Text = "Replace File";
@@ -401,68 +405,19 @@
             // 
             // renameFileToolStripMenuItem
             // 
+            this.renameFileToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.renameFileToolStripMenuItem.Name = "renameFileToolStripMenuItem";
-            this.renameFileToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.renameFileToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.renameFileToolStripMenuItem.Text = "Rename File";
             this.renameFileToolStripMenuItem.Click += new System.EventHandler(this.renameFileToolStripMenuItem_Click);
             // 
             // deleteFileToolStripMenuItem
             // 
+            this.deleteFileToolStripMenuItem.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.deleteFileToolStripMenuItem.Name = "deleteFileToolStripMenuItem";
-            this.deleteFileToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.deleteFileToolStripMenuItem.Size = new System.Drawing.Size(113, 22);
             this.deleteFileToolStripMenuItem.Text = "Delete File";
             this.deleteFileToolStripMenuItem.Click += new System.EventHandler(this.deleteFileToolStripMenuItem_Click);
-            // 
-            // actionProgressBar
-            // 
-            this.actionProgressBar.Location = new System.Drawing.Point(282, 53);
-            this.actionProgressBar.Name = "actionProgressBar";
-            this.actionProgressBar.Size = new System.Drawing.Size(289, 17);
-            this.actionProgressBar.TabIndex = 22;
-            // 
-            // progressStatusLabel
-            // 
-            this.progressStatusLabel.AutoSize = true;
-            this.progressStatusLabel.Location = new System.Drawing.Point(280, 30);
-            this.progressStatusLabel.Name = "progressStatusLabel";
-            this.progressStatusLabel.Size = new System.Drawing.Size(54, 13);
-            this.progressStatusLabel.TabIndex = 23;
-            this.progressStatusLabel.Text = "Progress: ";
-            // 
-            // viewInHexButton
-            // 
-            this.viewInHexButton.Location = new System.Drawing.Point(575, 28);
-            this.viewInHexButton.Name = "viewInHexButton";
-            this.viewInHexButton.Size = new System.Drawing.Size(127, 23);
-            this.viewInHexButton.TabIndex = 24;
-            this.viewInHexButton.Text = "View Current File in Hex";
-            this.viewInHexButton.UseVisualStyleBackColor = true;
-            this.viewInHexButton.Click += new System.EventHandler(this.viewInHexButton_Click);
-            // 
-            // zoneUD
-            // 
-            this.zoneUD.Location = new System.Drawing.Point(50, 50);
-            this.zoneUD.Name = "zoneUD";
-            this.zoneUD.Size = new System.Drawing.Size(37, 20);
-            this.zoneUD.TabIndex = 19;
-            // 
-            // AFSQuestItemsLabel
-            // 
-            this.AFSQuestItemsLabel.AutoSize = true;
-            this.AFSQuestItemsLabel.Location = new System.Drawing.Point(5, 29);
-            this.AFSQuestItemsLabel.Name = "AFSQuestItemsLabel";
-            this.AFSQuestItemsLabel.Size = new System.Drawing.Size(85, 13);
-            this.AFSQuestItemsLabel.TabIndex = 25;
-            this.AFSQuestItemsLabel.Text = "AFS/quest items";
-            // 
-            // zoneLabel
-            // 
-            this.zoneLabel.AutoSize = true;
-            this.zoneLabel.Location = new System.Drawing.Point(12, 52);
-            this.zoneLabel.Name = "zoneLabel";
-            this.zoneLabel.Size = new System.Drawing.Size(35, 13);
-            this.zoneLabel.TabIndex = 26;
-            this.zoneLabel.Text = "Zone:";
             // 
             // afsNblFileContextMenuStrip
             // 
@@ -482,45 +437,149 @@
             // 
             this.compressChunkToolStripMenuItem.CheckOnClick = true;
             this.compressChunkToolStripMenuItem.Name = "compressChunkToolStripMenuItem";
-            this.compressChunkToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.compressChunkToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
             this.compressChunkToolStripMenuItem.Text = "Compress Chunk";
             this.compressChunkToolStripMenuItem.CheckedChanged += new System.EventHandler(this.compressChunkToolStripMenuItem_CheckedChanged);
             // 
             // addFileToolStripMenuItem
             // 
             this.addFileToolStripMenuItem.Name = "addFileToolStripMenuItem";
-            this.addFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.addFileToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
             this.addFileToolStripMenuItem.Text = "Add File";
             this.addFileToolStripMenuItem.Click += new System.EventHandler(this.addFileToolStripMenuItem_Click);
+            // 
+            // directorySearcher1
+            // 
+            this.directorySearcher1.ClientTimeout = System.TimeSpan.Parse("-00:00:01");
+            this.directorySearcher1.ServerPageTimeLimit = System.TimeSpan.Parse("-00:00:01");
+            this.directorySearcher1.ServerTimeLimit = System.TimeSpan.Parse("-00:00:01");
+            // 
+            // treeView1
+            // 
+            this.treeView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.treeView1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.treeView1.ForeColor = System.Drawing.Color.Coral;
+            this.treeView1.HideSelection = false;
+            this.treeView1.LabelEdit = true;
+            this.treeView1.Location = new System.Drawing.Point(3, 29);
+            this.treeView1.MaximumSize = new System.Drawing.Size(383, 800);
+            this.treeView1.Name = "treeView1";
+            this.treeView1.Size = new System.Drawing.Size(383, 436);
+            this.treeView1.TabIndex = 0;
+            this.treeView1.BeforeLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.treeView1_BeforeLabelEdit);
+            this.treeView1.AfterLabelEdit += new System.Windows.Forms.NodeLabelEditEventHandler(this.treeView1_AfterLabelEdit);
+            this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView1_AfterSelect);
+            this.treeView1.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeView1_NodeMouseClick);
+            this.treeView1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.treeView1_KeyDown);
+            // 
+            // actionProgressBar
+            // 
+            this.actionProgressBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.actionProgressBar.Location = new System.Drawing.Point(63, 1263);
+            this.actionProgressBar.Name = "actionProgressBar";
+            this.actionProgressBar.Size = new System.Drawing.Size(255, 13);
+            this.actionProgressBar.TabIndex = 22;
+            // 
+            // progressStatusLabel
+            // 
+            this.progressStatusLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.progressStatusLabel.AutoSize = true;
+            this.progressStatusLabel.Location = new System.Drawing.Point(3, 1263);
+            this.progressStatusLabel.Name = "progressStatusLabel";
+            this.progressStatusLabel.Size = new System.Drawing.Size(54, 13);
+            this.progressStatusLabel.TabIndex = 23;
+            this.progressStatusLabel.Text = "Progress: ";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(3, 3);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(286, 20);
+            this.textBox1.TabIndex = 24;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(295, 0);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(91, 23);
+            this.button1.TabIndex = 25;
+            this.button1.Text = "Find";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.splitContainer1.Location = new System.Drawing.Point(0, 28);
+            this.splitContainer1.Name = "splitContainer1";
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.AutoScroll = true;
+            this.splitContainer1.Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.splitContainer1.Panel1.Controls.Add(this.button2);
+            this.splitContainer1.Panel1.Controls.Add(this.button1);
+            this.splitContainer1.Panel1.Controls.Add(this.textBox1);
+            this.splitContainer1.Panel1.Controls.Add(this.progressStatusLabel);
+            this.splitContainer1.Panel1.Controls.Add(this.actionProgressBar);
+            this.splitContainer1.Panel1.Controls.Add(this.treeView1);
+            this.splitContainer1.Panel1.ForeColor = System.Drawing.Color.Coral;
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.splitContainer1.Panel2.ForeColor = System.Drawing.Color.Coral;
+            this.splitContainer1.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Panel2_Paint);
+            this.splitContainer1.Size = new System.Drawing.Size(2088, 1064);
+            this.splitContainer1.SplitterDistance = 432;
+            this.splitContainer1.SplitterWidth = 1;
+            this.splitContainer1.TabIndex = 14;
+            this.splitContainer1.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitContainer1_SplitterMoved);
+            // 
+            // button2
+            // 
+            this.button2.ForeColor = System.Drawing.Color.Red;
+            this.button2.Location = new System.Drawing.Point(392, 0);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(37, 23);
+            this.button2.TabIndex = 26;
+            this.button2.Text = "Auto";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(827, 480);
-            this.Controls.Add(this.zoneLabel);
-            this.Controls.Add(this.AFSQuestItemsLabel);
-            this.Controls.Add(this.viewInHexButton);
-            this.Controls.Add(this.progressStatusLabel);
-            this.Controls.Add(this.actionProgressBar);
-            this.Controls.Add(this.addFileButton);
-            this.Controls.Add(this.zoneUD);
-            this.Controls.Add(this.addZoneButton);
-            this.Controls.Add(this.setZoneButton);
-            this.Controls.Add(this.setQuestButton);
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.ClientSize = new System.Drawing.Size(884, 461);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ForeColor = System.Drawing.Color.Coral;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
+            this.MaximumSize = new System.Drawing.Size(1280, 800);
             this.Name = "MainForm";
-            this.Text = "PSU Generic Parser build ";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.WindowsDefaultBounds;
+            this.Text = "Tenora Works Custom";
+            this.TransparencyKey = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.arbitraryFileContextMenuStrip.ResumeLayout(false);
+            this.nblChunkContextMenuStrip.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            this.arbitraryFileContextMenuStrip.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.zoneUD)).EndInit();
-            this.nblChunkContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -535,13 +594,7 @@
         private System.Windows.Forms.ToolStripMenuItem debugToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportBlobToolStripMenuItem;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
-        private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.OpenFileDialog importDialog;
-        private System.Windows.Forms.Button setQuestButton;
-        private System.Windows.Forms.Button setZoneButton;
-        private System.Windows.Forms.Button addZoneButton;
-        private System.Windows.Forms.TreeView treeView1;
-        private System.Windows.Forms.Button addFileButton;
         private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
         private System.Windows.Forms.ToolStripMenuItem createAFSToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip arbitraryFileContextMenuStrip;
@@ -561,12 +614,6 @@
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem batchToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem extractAllInFolderToolStripMenuItem;
-        private System.Windows.Forms.ProgressBar actionProgressBar;
-        private System.Windows.Forms.Label progressStatusLabel;
-        private System.Windows.Forms.Button viewInHexButton;
-        private System.Windows.Forms.NumericUpDown zoneUD;
-        private System.Windows.Forms.Label AFSQuestItemsLabel;
-        private System.Windows.Forms.Label zoneLabel;
         private System.Windows.Forms.ContextMenuStrip afsNblFileContextMenuStrip;
         private System.Windows.Forms.ContextMenuStrip nblChunkContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem compressChunkToolStripMenuItem;
@@ -578,6 +625,19 @@
         private System.Windows.Forms.ToolStripMenuItem renameFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem viewCurrentFileInHexToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem githubToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem versionToolStripMenuItem;
+        private System.DirectoryServices.DirectorySearcher directorySearcher1;
+        private System.Windows.Forms.TreeView treeView1;
+        private System.Windows.Forms.ProgressBar actionProgressBar;
+        private System.Windows.Forms.Label progressStatusLabel;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.Button button2;
     }
 }
 
