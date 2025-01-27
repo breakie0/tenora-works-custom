@@ -26,7 +26,7 @@ namespace psu_generic_parser.Forms.FileViewers
 			this.picBoxMain.BackColor = Color.Black;
 			try
 			{
-				//this.picBoxMain.Image = ResizeBitmap(texture, texture.Width * 2, texture.Height * 2);
+				this.picBoxMain.Image = ResizeBitmap(texture, texture.Width * 2, texture.Height * 2);
 			}
 			catch (Exception e) {
 				Console.WriteLine(e.Message);
