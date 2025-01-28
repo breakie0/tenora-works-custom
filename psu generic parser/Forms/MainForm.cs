@@ -55,6 +55,7 @@ namespace psu_generic_parser
             public static string ZombiePath { get; set; } = string.Empty;
         }
 
+
         public MainForm()
         {
             InitializeComponent();
@@ -497,7 +498,7 @@ namespace psu_generic_parser
             }
             else if( toRead is PalTextureFile ripcFile )
             {
-                toAdd = new PaletteTexFileViewer(ripcFile);
+                toAdd = new PaletteTexFileViewer(ripcFile, this);
             }
             else if( toRead is QuestXNRFile questFile )
             {
@@ -673,9 +674,11 @@ namespace psu_generic_parser
             }
         }
 
+        public string SelectedNodeText { get; private set; }
         private void treeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             ((TreeView)sender).SelectedNode = e.Node;
+            SelectedNodeText = e.Node.Text; // Store the text in the public property
             Console.WriteLine($"Node Text: {e.Node.Text}, Node Name: {e.Node.Name}");
         }
 

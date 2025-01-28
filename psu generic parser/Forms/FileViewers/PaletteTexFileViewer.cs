@@ -12,16 +12,19 @@ using System.Windows.Forms;
 
 namespace psu_generic_parser.Forms.FileViewers
 {
-	public partial class PaletteTexFileViewer : UserControl
-	{
-		PalTextureFile currentFile;
-		public PaletteTexFileViewer(PalTextureFile file)
-		{
+    public partial class PaletteTexFileViewer : UserControl
+    {
+        private MainForm mainForm; // Reference to MainForm
+        private PalTextureFile currentFile;
+
+        public PaletteTexFileViewer(PalTextureFile file, MainForm mainForm)
+        {
 			InitializeComponent();
 
-			currentFile = file;
+            currentFile = file;
+            this.mainForm = mainForm; // Store the reference to MainForm
 
-			Bitmap texture = file.GetTextureBitmap();
+            Bitmap texture = file.GetTextureBitmap();
 
 			this.picBoxMain.BackColor = Color.Black;
 			try
@@ -51,9 +54,50 @@ namespace psu_generic_parser.Forms.FileViewers
 
 		private void btn_ImportTexture_Click(object sender, EventArgs e)
 		{
+            string selectedNodeText = mainForm.SelectedNodeText;
+            Console.WriteLine($"Selected Node Text: {selectedNodeText}");
+        }
 
-		}
+        private void btn_ExportTexture_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog dialog = new SaveFileDialog
+            {
+                Filter = "PNG Files (*.png)|*.png", // Restrict to PNG files
+                DefaultExt = "png",                 // Default extension is .png
+                AddExtension = true                 // Automatically add .png if missing
+            };
 
+            // Use SelectedNodeText value as the default file name, stripped of ".bin"
+            string selectedNodeText = mainForm.SelectedNodeText;
+            if (!string.IsNullOrEmpty(selectedNodeText))
+            {
+                // Strip ".bin" if it exists
+                if (selectedNodeText.EndsWith(".bin", StringComparison.OrdinalIgnoreCase))
+                {
+                    selectedNodeText = selectedNodeText.Substring(0, selectedNodeText.Length - 4); // Remove last 4 characters
+                }
+
+                dialog.FileName = selectedNodeText + ".png"; // Pre-fill the file name
+            }
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                Bitmap bm_palette = currentFile.GetTextureBitmap();
+
+                // Ensure the file name ends with ".png" (just in case)
+                string fileName = dialog.FileName;
+                if (!fileName.EndsWith(".png", StringComparison.OrdinalIgnoreCase))
+                {
+                    fileName += ".png";
+                }
+
+                bm_palette.Save(fileName, ImageFormat.Png);
+            }
+        }
+
+
+
+        /*
 		private void btn_ExportTexture_Click(object sender, EventArgs e)
 		{
             SaveFileDialog dialog = new SaveFileDialog();
@@ -63,8 +107,9 @@ namespace psu_generic_parser.Forms.FileViewers
                 bm_palette.Save(dialog.FileName, ImageFormat.Png);
             }
         }
+		*/
 
-		private void btn_ImportPalette_Click(object sender, EventArgs e)
+        private void btn_ImportPalette_Click(object sender, EventArgs e)
 		{
 			OpenFileDialog dialog = new OpenFileDialog();
 			if( dialog.ShowDialog() == DialogResult.OK )

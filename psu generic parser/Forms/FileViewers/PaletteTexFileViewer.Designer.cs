@@ -108,7 +108,7 @@
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(493, 541);
+            this.groupBox1.Size = new System.Drawing.Size(492, 541);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Texture";
@@ -136,7 +136,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.groupBox2);
             this.splitContainer1.Size = new System.Drawing.Size(1161, 541);
-            this.splitContainer1.SplitterDistance = 493;
+            this.splitContainer1.SplitterDistance = 492;
             this.splitContainer1.TabIndex = 9;
             // 
             // groupBox2
@@ -147,7 +147,7 @@
             this.groupBox2.ForeColor = System.Drawing.SystemColors.ActiveCaption;
             this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(664, 541);
+            this.groupBox2.Size = new System.Drawing.Size(665, 541);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Color Palette";
