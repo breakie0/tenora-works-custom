@@ -7,7 +7,8 @@ Forked version from [Tenora-works by Agrathejagged](https://github.com/Agratheja
   - Auto exporter functionality for .xnj file textures
   - Some UI fixes here and there that I've come across
   - Slight changes to exporting textures from .bin files
-  - Minor fix to allow exporting textures from .bin files
+  - Can export textures from .bin files
+  - Export .bin textures at correct width and height for character model UV maps
 
 
 ![Screenshot 2025-01-27 012315](https://github.com/user-attachments/assets/966d8b0b-732a-4ebf-85bf-a3c443aa8d36)
