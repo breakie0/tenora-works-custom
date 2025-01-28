@@ -14,7 +14,7 @@ namespace psu_generic_parser.Forms.FileViewers
 {
     public partial class PaletteTexFileViewer : UserControl
     {
-        private MainForm mainForm; // Reference to MainForm
+        private MainForm mainForm; 
         private PalTextureFile currentFile;
 
         public PaletteTexFileViewer(PalTextureFile file, MainForm mainForm)
@@ -22,7 +22,7 @@ namespace psu_generic_parser.Forms.FileViewers
 			InitializeComponent();
 
             currentFile = file;
-            this.mainForm = mainForm; // Store the reference to MainForm
+            this.mainForm = mainForm; 
 
             Bitmap texture = file.GetTextureBitmap();
 
@@ -62,22 +62,21 @@ namespace psu_generic_parser.Forms.FileViewers
         {
             SaveFileDialog dialog = new SaveFileDialog
             {
-                Filter = "PNG Files (*.png)|*.png", // Restrict to PNG files
-                DefaultExt = "png",                 // Default extension is .png
-                AddExtension = true                 // Automatically add .png if missing
+                Filter = "PNG Files (*.png)|*.png", 
+                DefaultExt = "png",                 
+                AddExtension = true                 
             };
 
-            // Use SelectedNodeText value as the default file name, stripped of ".bin"
             string selectedNodeText = mainForm.SelectedNodeText;
             if (!string.IsNullOrEmpty(selectedNodeText))
             {
                 // Strip ".bin" if it exists
                 if (selectedNodeText.EndsWith(".bin", StringComparison.OrdinalIgnoreCase))
                 {
-                    selectedNodeText = selectedNodeText.Substring(0, selectedNodeText.Length - 4); // Remove last 4 characters
+                    selectedNodeText = selectedNodeText.Substring(0, selectedNodeText.Length - 4); // Remove .bin
                 }
 
-                dialog.FileName = selectedNodeText + ".png"; // Pre-fill the file name
+                dialog.FileName = selectedNodeText + ".png"; 
             }
 
             if (dialog.ShowDialog() == DialogResult.OK)

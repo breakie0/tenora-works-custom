@@ -54,7 +54,7 @@ namespace psu_generic_parser
             public static bool Zombie { get; set; } = false;
             public static string ZombiePath { get; set; } = string.Empty;
         }
-
+        public string SelectedNodeText { get; private set; }
 
         public MainForm()
         {
@@ -674,7 +674,6 @@ namespace psu_generic_parser
             }
         }
 
-        public string SelectedNodeText { get; private set; }
         private void treeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             ((TreeView)sender).SelectedNode = e.Node;
