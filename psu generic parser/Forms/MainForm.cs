@@ -54,7 +54,6 @@ namespace psu_generic_parser
             public static bool Zombie { get; set; } = false;
             public static string ZombiePath { get; set; } = string.Empty;
         }
-        public string SelectedNodeText { get; private set; }
 
         public MainForm()
         {
@@ -498,7 +497,7 @@ namespace psu_generic_parser
             }
             else if( toRead is PalTextureFile ripcFile )
             {
-                toAdd = new PaletteTexFileViewer(ripcFile, this);
+                toAdd = new PaletteTexFileViewer(ripcFile);
             }
             else if( toRead is QuestXNRFile questFile )
             {
@@ -677,7 +676,6 @@ namespace psu_generic_parser
         private void treeView1_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
         {
             ((TreeView)sender).SelectedNode = e.Node;
-            SelectedNodeText = e.Node.Text; // Store the text in the public property
             Console.WriteLine($"Node Text: {e.Node.Text}, Node Name: {e.Node.Name}");
         }
 
@@ -2019,16 +2017,19 @@ namespace psu_generic_parser
             return null;
         }
 
+
+
         private void SearchTreeViewByClipboardText()
         {
             string searchString = Clipboard.GetText(); // Get the text from the clipboard
 
             TreeNode targetNode = FindNodeByText(treeView1.Nodes, searchString);
-
+            
             if (targetNode != null)
             {
                 treeView1.SelectedNode = targetNode;
-                targetNode.EnsureVisible();
+                var TestExport = targetNode.Tag;
+                //targetNode.EnsureVisible();
                 // Optionally show a message or perform additional actions here
                 // MessageBox.Show($"Node with text '{searchString}' found and selected.");
             }
@@ -2045,6 +2046,14 @@ namespace psu_generic_parser
             {
                 SearchTreeViewByClipboardText();
             }
+
+            if (e.KeyCode == Keys.Enter) // Check if the Enter key is pressed 
+            {
+                Console.WriteLine("TESTST");
+                SearchTreeViewByClipboardText();
+                exportSelected();
+            }
+              
         }
 
         private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e)
